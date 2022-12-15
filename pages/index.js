@@ -1,25 +1,12 @@
-// import Head from 'next/head'
+import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <meta name="viewport" content="width=device-width"/>
-          <meta charSet="utf-8"/><title>Conversion test</title>
-            <link rel="icon" href="/favicon.ico"/>
-              <meta name="next-head-count" content="5">
-                <link rel="preload" href="/_next/static/css/d7103672eb18c283a687.css" as="style"/>
-                  <link rel="stylesheet" href="/_next/static/css/d7103672eb18c283a687.css" data-n-g=""/>
-                    <link rel="preload" href="/_next/static/css/9a89afcbe95084ea8b90.css" as="style"/>
-                      <link rel="stylesheet" href="/_next/static/css/9a89afcbe95084ea8b90.css" data-n-p=""/>
-                        <noscript data-n-css=""></noscript>
-                        <link rel="preload" href="/_next/static/chunks/main-1fee81af3413b0132bb3.js" as="script"/>
-                          <link rel="preload" href="/_next/static/chunks/webpack-50bee04d1dc61f8adf5b.js" as="script">
-                            <link rel="preload" href="/_next/static/chunks/framework.d886aa606cb477fe4641.js" as="script"/>
-                              <link rel="preload" href="/_next/static/chunks/f6078781a05fe1bcb0902d23dbbb2662c8d200b3.78706e8cfec9a95b753d.js" as="script"/>
-                                <link rel="preload" href="/_next/static/chunks/pages/_app-ecd00fcb2dfa3b2beec2.js" as="script"/>
-         <link rel="preload" href="/_next/static/chunks/pages/index-330f6884e1baa1d159b8.js" as="script"/>
+        <title>Conversion test</title>
+        <link rel="icon" href="/favicon.ico" />
         <script async src="https://cdn.loycus.jp/script.min.js?whc=1612251050161"></script>
       </Head>
 
