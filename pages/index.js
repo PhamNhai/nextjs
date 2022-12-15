@@ -7,6 +7,7 @@ export default function Home() {
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
+        <script async src="https://cdn.loycus.jp/script.min.js?whc=1612251050161"></script>
       </Head>
 
       <main className={styles.main}>
