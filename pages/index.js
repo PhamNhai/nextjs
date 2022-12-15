@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Conversion test</title>
         <link rel="icon" href="/favicon.ico" />
         <script async src="https://cdn.loycus.jp/script.min.js?whc=1612251050161"></script>
       </Head>
