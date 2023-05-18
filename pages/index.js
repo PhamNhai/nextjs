@@ -7,7 +7,7 @@ export default function Home() {
       <Head>
         <title>Conversion test</title>
         <link rel="icon" href="/favicon.ico" />
-          <script async src="https://lcrm-dev.s3.ap-northeast-1.amazonaws.com/developer/script-stg.min.js?whc=1611658208861"></script>
+          <script async src="https://cdn.loycus.jp/script.min.js?whc=1612251050161"></script>
       </Head>
 
       <main className={styles.main}>
