@@ -1,53 +1,56 @@
-import React, { useEffect, useState } from 'react';
+import fetch from 'node-fetch';
 
-const Scraper = () => {
-    const [data, setData] = useState([]);
+export default async (req, res) => {
+  const url = "https://home.tmon.co.kr/";
 
-    useEffect(() => {
-        // Your scraping logic goes here
-        const fetchData = async () => {
-            try {
-                const response = await fetch('https://home.tmon.co.kr/api/home/direct/v1/recommendapi/api/v1/todayRecommend/deals?platformType=PC_WEB&useCache=CACHE_S60');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch data');
-                }
-                const json = await response.json();
-                const texts = ['NIKE', 'ADIDAS', 'SALOMON', 'NEW BALANCE', 'UNDER ARMOR', 'CONVERSE', 'CROCS', 'WHOAU', 'MIXXO', 'SPAO'];
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Failed to retrieve the web page");
+    }
 
-                const filteredData = json.data.filter((item) => {
-                    for (const text of texts) {
-                        if (item.title.includes(text)) {
-                            return true;
-                        }
-                    }
-                    return false;
-                });
+    const html = await response.text();
+    const domParser = new DOMParser();
+    const dom = domParser.parseFromString(html, 'text/html');
+    const datas = Array.from(dom.querySelector('body').data);
 
-                setData(filteredData);
-            } catch (error) {
-                console.error(error);
-            }
-        };
+    const texts = {
+      'NIKE': '나이키',
+      'ADIDAS': '아디다스',
+      'SALOMON': '살로몬',
+      'NEW BALANCE': '뉴발란스',
+      'UNDER ARMOR': '언더아머',
+      'CONVERSE': '컨버스',
+      'CROCS': '크록스',
+      'WHOAU': '후아유',
+      'MIXXO': '미쏘',
+      'SPAO': '스파오'
+    };
 
-        fetchData();
-    }, []);
+    const result = [];
 
-    return (
-        <div>
-        {data.map((item, index) => (
-                <div key={index}>
-            <p>
-            {item.title}
-            <br />
-            SALE {item.discountPrice.dealDiscountRate}%
-<br />
-    (chỉ từ {new Intl.NumberFormat('en-US').format(item.discountPrice.price * 20 + 50000)} ka~)
-</p>
-    <a href={item.launchInfo.url}>Link</a>
-        </div>
-))}
-</div>
-);
+    datas.forEach((data) => {
+      const title = data.title;
+      let found = false;
+      let tmp = '';
+      Object.entries(texts).forEach(([eng, text]) => {
+        if (title.includes(text)) {
+          tmp += eng + ' X ';
+          found = true;
+        }
+      });
+
+      if (found) {
+        tmp = tmp.slice(0, -2);
+        result.push(
+          tmp + "\n\n SALE  " + data.discountPrice.dealDiscountRate + "% \n (chỉ từ " + (data.discountPrice.price * 20 + 50000).toLocaleString('en-US') + " ka~)\n"
+        );
+        result.push(data.launchInfo.url + "\n\n");
+      }
+    });
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to retrieve the web page" });
+  }
 };
-
-export default Scraper;
